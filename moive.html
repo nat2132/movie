@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Poster</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: 'Times New Roman', Times, serif, sans-serif;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        form {
+            width: 300px;
+            margin: 0 auto;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+        input[type="text"], input[type="file"] {
+            width: 100%;
+            padding: 5px;
+            margin-top: 5px;
+        }
+        button[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            border: none;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to Our Movie Collector</h1>
+    <form action="" novalidate>
+        <label for="movieTitle">Movie Title:</label>
+        <input type="text" id="movieTitle" name="movieTitle" placeholder="Avengers">
+        <label for="movieImage">Enter Image:</label>
+        <input type="file" id="movieImage" name="movieImage" accept="image/*">
+        <button type="submit">Submit</button>
+    </form>
+    <div class="container mt-4">
+        <div class="row" id="movieContainer"></div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script>
+        const movieForm = document.querySelector("form");
+        const movieContainer = document.getElementById("movieContainer");
+
+        movieForm.addEventListener("submit", (event) => {
+            event.preventDefault(); // Prevent form submission
+
+            const title = document.getElementById("movieTitle").value;
+            const movieImage = document.getElementById("movieImage").files[0];
+
+            // Create Bootstrap card
+            const card = document.createElement("div");
+            card.classList.add("col-md-4", "mb-4");
+
+            const cardInner = document.createElement("div");
+            cardInner.classList.add("card");
+
+            // Display movie image within the card
+            const img = document.createElement("img");
+            img.src = URL.createObjectURL(movieImage);
+            img.alt = title;
+            img.classList.add("card-img-top");
+
+            const cardBody = document.createElement("div");
+            cardBody.classList.add("card-body");
+
+            // Display movie title within the card
+            const cardTitle = document.createElement("h5");
+            cardTitle.classList.add("card-title");
+            cardTitle.textContent = title;
+
+            // Append elements to the card
+            cardBody.appendChild(cardTitle);
+            cardInner.appendChild(img);
+            cardInner.appendChild(cardBody);
+            card.appendChild(cardInner);
+
+            // Append the card to the movie container
+            movieContainer.appendChild(card);
+        });
+    </script>
+</body>
+</html>
